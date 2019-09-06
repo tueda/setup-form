@@ -1,6 +1,9 @@
 name: 'Set up FORM'
 description: 'Install FORM and add it to the PATH'
 author: 'Takahiro Ueda'
+branding:
+  icon: 'chevrons-right'
+  color: 'blue'
 inputs:
   form-version:
     description: 'The FORM version to download and use. Example: 4.2.1'
