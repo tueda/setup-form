@@ -9,6 +9,8 @@ const tempDir = path.join(__dirname, 'runner', 'temp');
 process.env['RUNNER_TOOL_CACHE'] = toolDir;
 process.env['RUNNER_TEMP'] = tempDir;
 
+jest.setTimeout(30000);
+
 import * as installer from '../src/installer';
 
 describe('installer tests', () => {
