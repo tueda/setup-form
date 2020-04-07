@@ -4560,7 +4560,7 @@ function installForm(version) {
             }
             catch (error) {
                 core.debug(error);
-                throw `Failed to download version ${version}: ${error}`;
+                throw new Error(`Failed to download version ${version}: ${error}`);
             }
             // Extract and install into the tool cache.
             const extPath = yield tc.extractTar(downloadPath);
@@ -4574,7 +4574,7 @@ function installForm(version) {
 }
 exports.installForm = installForm;
 function normalizeVersion(version) {
-    const versionPart = version.split(".");
+    const versionPart = version.split('.');
     if (versionPart[1] == null) {
         return `${version}.0.0`;
     }
