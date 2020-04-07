@@ -1,6 +1,6 @@
-import * as core from '@actions/core';
-import * as tc from '@actions/tool-cache';
-import * as path from 'path';
+import * as core from '@actions/core'
+import * as tc from '@actions/tool-cache'
+import * as path from 'path'
 
 export async function installForm(version: string): Promise<string> {
   // In the GitHub releases, we have
@@ -11,21 +11,21 @@ export async function installForm(version: string): Promise<string> {
   // at least for x86_64-linux. Note that each of these "stable" versions is
   // known to have specific critical bugs. Be careful!
 
-  let semanticVersion: string;
-  let downloadVersion: string;
-  let tagVersion: string;
+  let semanticVersion: string
+  let downloadVersion: string
+  let tagVersion: string
   if (version === '4.0' || version === '4.0.0') {
-    semanticVersion = '4.0.0';
-    downloadVersion = '4.0-20120410';
-    tagVersion = 'v4.0-20120410';
+    semanticVersion = '4.0.0'
+    downloadVersion = '4.0-20120410'
+    tagVersion = 'v4.0-20120410'
   } else if (version === '4.1' || version === '4.1.0') {
-    semanticVersion = '4.1.0';
-    downloadVersion = '4.1';
-    tagVersion = 'v4.1-20131025';
+    semanticVersion = '4.1.0'
+    downloadVersion = '4.1'
+    tagVersion = 'v4.1-20131025'
   } else {
-    semanticVersion = normalizeVersion(version);
-    downloadVersion = semanticVersion;
-    tagVersion = `v${semanticVersion}`;
+    semanticVersion = normalizeVersion(version)
+    downloadVersion = semanticVersion
+    tagVersion = `v${semanticVersion}`
   }
 
   core.debug(`FORM version = ${version}`)
@@ -35,11 +35,11 @@ export async function installForm(version: string): Promise<string> {
 
   // First, check cache. Note that the caching utility accept only semantic
   // versions.
-  let toolPath = tc.find('form', semanticVersion);
+  let toolPath = tc.find('form', semanticVersion)
 
   if (!toolPath) {
     // Download from the GitHub releases.
-    let arch = 'unknown';
+    let arch = 'unknown'
     if (process.platform === 'linux') {
       arch = 'x86_64-linux'
     } else if (process.platform === 'darwin') {
@@ -48,34 +48,34 @@ export async function installForm(version: string): Promise<string> {
       arch = 'x86_64-win32'
     }
 
-    const downloadUrl = `https://github.com/vermaseren/form/releases/download/${tagVersion}/form-${downloadVersion}-${arch}.tar.gz`;
-    let downloadPath: string;
+    const downloadUrl = `https://github.com/vermaseren/form/releases/download/${tagVersion}/form-${downloadVersion}-${arch}.tar.gz`
+    let downloadPath: string
     try {
-      downloadPath = await tc.downloadTool(downloadUrl);
+      downloadPath = await tc.downloadTool(downloadUrl)
     } catch (error) {
-      core.debug(error);
-      throw `Failed to download version ${version}: ${error}`
+      core.debug(error)
+      throw new Error(`Failed to download version ${version}: ${error}`)
     }
 
     // Extract and install into the tool cache.
-    const extPath = await tc.extractTar(downloadPath);
-    const toolRoot = path.join(extPath, `form-${downloadVersion}-${arch}`);
-    toolPath = await tc.cacheDir(toolRoot, 'form', semanticVersion);
+    const extPath = await tc.extractTar(downloadPath)
+    const toolRoot = path.join(extPath, `form-${downloadVersion}-${arch}`)
+    toolPath = await tc.cacheDir(toolRoot, 'form', semanticVersion)
   }
 
   // Add it to the PATH.
-  core.addPath(toolPath);
+  core.addPath(toolPath)
 
-  return toolPath;
+  return toolPath
 }
 
 function normalizeVersion(version: string): string {
-  const versionPart = version.split(".");
+  const versionPart = version.split('.')
   if (versionPart[1] == null) {
-    return `${version}.0.0`;
+    return `${version}.0.0`
   } else if (versionPart[2] == null) {
-    return `${version}.0`;
+    return `${version}.0`
   } else {
-    return version;
+    return version
   }
 }
