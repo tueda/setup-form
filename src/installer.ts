@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
-import * as tc from '@actions/tool-cache'
 import * as path from 'path'
+import * as tc from '@actions/tool-cache'
 
 export async function installForm(version: string): Promise<string> {
   // In the GitHub releases, we have
@@ -53,7 +53,7 @@ export async function installForm(version: string): Promise<string> {
     try {
       downloadPath = await tc.downloadTool(downloadUrl)
     } catch (error) {
-      core.debug(error)
+      core.debug(`${error}`)
       throw new Error(`Failed to download version ${version}: ${error}`)
     }
 
