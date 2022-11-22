@@ -46,6 +46,7 @@ const tc = __importStar(__nccwpck_require__(7784));
 function installForm(version) {
     return __awaiter(this, void 0, void 0, function* () {
         // In the GitHub releases, we have
+        //   - 4.3.0
         //   - 4.2.1
         //   - 4.2.0
         //   - 4.1.0 (= 4.1)

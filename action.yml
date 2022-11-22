@@ -6,8 +6,8 @@ branding:
   color: 'blue'
 inputs:
   form-version:
-    description: 'The FORM version to download and use. Example: 4.2.1'
-    default: '4.2.1'
+    description: 'The FORM version to download and use. Example: 4.3.0'
+    default: '4.3.0'
 runs:
   using: 'node12'
   main: 'dist/index.js'
