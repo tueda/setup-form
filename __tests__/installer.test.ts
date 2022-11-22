@@ -28,6 +28,17 @@ describe('installer tests', () => {
     }
   }, 100000)
 
+  it('Install FORM 4.3.0', async () => {
+    await installer.installForm('4.3.0')
+    const formDir = path.join(toolDir, 'form', '4.3.0', os.arch())
+    expect(fs.existsSync(`${formDir}.complete`)).toBe(true)
+    if (process.platform === 'win32') {
+      expect(fs.existsSync(path.join(formDir, 'form.exe'))).toBe(true)
+    } else {
+      expect(fs.existsSync(path.join(formDir, 'form'))).toBe(true)
+    }
+  })
+
   it('Install FORM 4.2.1', async () => {
     await installer.installForm('4.2.1')
     const formDir = path.join(toolDir, 'form', '4.2.1', os.arch())

@@ -7,10 +7,10 @@ workflows.
 
 ```yaml
 steps:
-- uses: actions/checkout@v2
+- uses: actions/checkout@v3
 - uses: tueda/setup-form@v1
   with:
-    form-version: '4.2.1'
+    form-version: '4.3.0'
 - run: form my_program.frm
 ```
 
