@@ -4,6 +4,7 @@ import * as tc from '@actions/tool-cache'
 
 export async function installForm(version: string): Promise<string> {
   // In the GitHub releases, we have
+  //   - 4.3.1
   //   - 4.3.0
   //   - 4.2.1
   //   - 4.2.0
